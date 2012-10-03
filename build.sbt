@@ -1,10 +1,10 @@
-seq(appengineSettings: _*)
-
-webappResources in Compile <+= (crossTarget in Compile)(_ / "webapp_managed")
-
 seq(coffeeSettings: _*)
 
-(resourceManaged in (Compile, CoffeeKeys.coffee)) <<= (crossTarget in Compile)(_ / "webapp_managed" / "js")
+seq(appengineSettings: _*)
+
+resourceManaged in (Compile, CoffeeKeys.coffee) <<= (crossTarget in Compile)(_ / "webapp_managed" / "js")
+
+webappResources in Compile <+= (crossTarget in Compile)(_ / "webapp_managed")
 
 scalaVersion := "2.9.2"
 
