@@ -26,6 +26,9 @@ class MessageBoard extends unfiltered.filter.Plan {
       Ok ~> ResponseString(compact(render(json)))
     }
     case req @ POST(Path("/messages")) => {
+      if (req.underlying.getCharacterEncoding == null) {
+        req.underlying.setCharacterEncoding("UTF-8")
+      }
       val jobject = JsonBody(req).get.asInstanceOf[JObject]
       val m = Message.fromJObject(jobject)
       if (Message.query.count >= messageLimit) {
